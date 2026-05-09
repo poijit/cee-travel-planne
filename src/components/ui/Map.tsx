@@ -54,7 +54,7 @@ export default function Map({ destination, activities }: MapProps) {
   if (!position) return <div className="h-64 sm:h-96 w-full bg-gray-200 dark:bg-gray-800 animate-pulse rounded-2xl flex items-center justify-center">Loading Map...</div>;
 
   const routePositions: [number, number][] = activities
-    .filter(a => a.coordinates && a.coordinates.lat && a.coordinates.lng)
+    .filter(a => a?.coordinates && a.coordinates.lat && a.coordinates.lng)
     .map(a => [Number(a.coordinates!.lat), Number(a.coordinates!.lng)]);
 
   return (
@@ -83,7 +83,7 @@ export default function Map({ destination, activities }: MapProps) {
 
         {/* Activity Markers */}
         {activities?.map((activity, index) => {
-          if (activity.coordinates && activity.coordinates.lat && activity.coordinates.lng) {
+          if (activity?.coordinates && activity.coordinates.lat && activity.coordinates.lng) {
             const createNumberedIcon = (num: number) => new L.DivIcon({
               className: 'custom-div-icon',
               html: `<div style="background-color: #3b82f6; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.4);">${num}</div>`,
