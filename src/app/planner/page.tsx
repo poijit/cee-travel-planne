@@ -117,55 +117,18 @@ export default function TripPlanner() {
     }
   };
 
-  const handleDownloadPDF = async () => {
-    const element = document.getElementById('itinerary-content');
-    const dest = itinerary?.destination;
-    if (!element || !itinerary || !dest) return;
-    
-    setIsDownloading(true);
-    
-    // Give React time to render the 'Generating PDF...' state before blocking the main thread
-    setTimeout(async () => {
-      try {
-        let html2pdf = (window as any).html2pdf;
-        if (!html2pdf) {
-          await new Promise((resolve, reject) => {
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-            script.onload = resolve;
-            script.onerror = reject;
-            document.head.appendChild(script);
-          });
-          html2pdf = (window as any).html2pdf;
-        }
-        
-        const opt = {
-          margin:       10,
-          filename:     `${dest.replace(/[^a-zA-Z0-9]/g, '_')}_Trip.pdf`,
-          image:        { type: 'jpeg' as const, quality: 0.95 },
-          html2canvas:  { 
-            scale: 1, // Reduced scale to prevent memory crashes
-            useCORS: true,
-            ignoreElements: (el: any) => el.classList && el.classList.contains('leaflet-container') // Skip map to prevent freezes
-          },
-          jsPDF:        { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const }
-        };
-        
-        await html2pdf().set(opt).from(element).save();
-      } catch (err) {
-        console.error("PDF generation failed:", err);
-        alert("Failed to generate PDF. Please try again.");
-      } finally {
-        setIsDownloading(false);
-      }
-    }, 100);
+  const handleDownloadPDF = () => {
+    // We use the browser's native print engine (which allows "Save as PDF") 
+    // because it handles complex Leaflet Maps and Chart canvases flawlessly, 
+    // unlike html2canvas which crashes or freezes the page.
+    window.print();
   };
 
   // If we have an itinerary (even a partial one), render the results
   if (itinerary && itinerary.title) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-8 print:hidden">
           <button 
             onClick={() => setItinerary(null)}
             className="text-primary hover:text-primary-hover font-semibold flex items-center gap-2"
