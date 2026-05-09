@@ -139,12 +139,9 @@ export default function TripPlanner() {
               <>
                 <button 
                   onClick={handleDownloadPDF}
-                  disabled={isDownloading}
-                  className={`px-6 py-2 rounded-lg font-medium transition-all ${
-                    isDownloading ? 'text-gray-500 bg-gray-200 cursor-wait' : 'text-primary bg-primary/10 hover:bg-primary/20 hover:-translate-y-0.5'
-                  }`}
+                  className="px-6 py-2 rounded-lg font-medium transition-all text-primary bg-primary/10 hover:bg-primary/20 hover:-translate-y-0.5"
                 >
-                  {isDownloading ? "⏳ Generating PDF..." : "⬇️ Download PDF"}
+                  ⬇️ Download PDF
                 </button>
                 <button 
                   onClick={handleSaveTrip}
