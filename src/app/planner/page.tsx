@@ -127,7 +127,17 @@ export default function TripPlanner() {
     // Give React time to render the 'Generating PDF...' state before blocking the main thread
     setTimeout(async () => {
       try {
-        const html2pdf = (await import('html2pdf.js')).default;
+        let html2pdf = (window as any).html2pdf;
+        if (!html2pdf) {
+          await new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+          });
+          html2pdf = (window as any).html2pdf;
+        }
         
         const opt = {
           margin:       10,
