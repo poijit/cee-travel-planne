@@ -172,6 +172,7 @@ export default function TripPlanner() {
               query={itinerary.destination} 
               alt={itinerary.destination} 
               className="w-full h-64 sm:h-80 rounded-xl mb-6 shadow-md"
+              isGenerating={isGenerating}
             />
           )}
           <h1 className="text-4xl font-extrabold text-foreground mb-2">{itinerary.title}</h1>
@@ -217,6 +218,7 @@ export default function TripPlanner() {
                           query={`${activity.name} ${itinerary.destination}`} 
                           alt={activity.name} 
                           className="w-full sm:w-32 h-32 shrink-0 rounded-lg shadow-sm"
+                          isGenerating={isGenerating}
                         />
                       )}
                       <div className="flex-1">

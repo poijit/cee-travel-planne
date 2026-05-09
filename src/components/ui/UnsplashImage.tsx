@@ -6,13 +6,16 @@ interface UnsplashImageProps {
   query: string;
   className?: string;
   alt: string;
+  isGenerating?: boolean;
 }
 
-export default function UnsplashImage({ query, className = "", alt }: UnsplashImageProps) {
+export default function UnsplashImage({ query, className = "", alt, isGenerating = false }: UnsplashImageProps) {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (isGenerating) return; // Wait until AI is finished before fetching images to prevent rate limits and crashes
+
     async function fetchImage() {
       const apiKey = process.env.NEXT_PUBLIC_UNSPLASH_API_KEY;
       
