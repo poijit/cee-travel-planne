@@ -84,6 +84,8 @@ export default function TripPlanner() {
     );
   }
 
+  const [isDownloading, setIsDownloading] = useState(false);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     submit({ destination, duration, budget, interests });
@@ -120,18 +122,33 @@ export default function TripPlanner() {
     const dest = itinerary?.destination;
     if (!element || !itinerary || !dest) return;
     
-    // Dynamically import html2pdf.js on the client side only
-    const html2pdf = (await import('html2pdf.js')).default;
+    setIsDownloading(true);
     
-    const opt = {
-      margin:       10,
-      filename:     `${dest.replace(/[^a-zA-Z0-9]/g, '_')}_Trip.pdf`,
-      image:        { type: 'jpeg' as const, quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true },
-      jsPDF:        { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const }
-    };
-    
-    html2pdf().set(opt).from(element).save();
+    // Give React time to render the 'Generating PDF...' state before blocking the main thread
+    setTimeout(async () => {
+      try {
+        const html2pdf = (await import('html2pdf.js')).default;
+        
+        const opt = {
+          margin:       10,
+          filename:     `${dest.replace(/[^a-zA-Z0-9]/g, '_')}_Trip.pdf`,
+          image:        { type: 'jpeg' as const, quality: 0.95 },
+          html2canvas:  { 
+            scale: 1, // Reduced scale to prevent memory crashes
+            useCORS: true,
+            ignoreElements: (el: any) => el.classList && el.classList.contains('leaflet-container') // Skip map to prevent freezes
+          },
+          jsPDF:        { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const }
+        };
+        
+        await html2pdf().set(opt).from(element).save();
+      } catch (err) {
+        console.error("PDF generation failed:", err);
+        alert("Failed to generate PDF. Please try again.");
+      } finally {
+        setIsDownloading(false);
+      }
+    }, 100);
   };
 
   // If we have an itinerary (even a partial one), render the results
@@ -151,9 +168,12 @@ export default function TripPlanner() {
               <>
                 <button 
                   onClick={handleDownloadPDF}
-                  className="px-6 py-2 rounded-lg font-medium text-primary bg-primary/10 transition-all hover:bg-primary/20 hover:-translate-y-0.5"
+                  disabled={isDownloading}
+                  className={`px-6 py-2 rounded-lg font-medium transition-all ${
+                    isDownloading ? 'text-gray-500 bg-gray-200 cursor-wait' : 'text-primary bg-primary/10 hover:bg-primary/20 hover:-translate-y-0.5'
+                  }`}
                 >
-                  ⬇️ Download PDF
+                  {isDownloading ? "⏳ Generating PDF..." : "⬇️ Download PDF"}
                 </button>
                 <button 
                   onClick={handleSaveTrip}
