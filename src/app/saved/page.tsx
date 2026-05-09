@@ -10,18 +10,12 @@ export default function SavedTrips() {
   const { data: session, status } = useSession();
   const router = useRouter();
   
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [trips, setTrips] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/");
-    } else if (status === "authenticated") {
-      fetchTrips();
-    }
-  }, [status, router]);
-
-  const fetchTrips = async () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function fetchTrips() {
     try {
       const response = await fetch('/api/trips');
       if (!response.ok) throw new Error('Failed to fetch');
@@ -33,6 +27,14 @@ export default function SavedTrips() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/");
+    } else if (status === "authenticated") {
+      fetchTrips();
+    }
+  }, [status, router]);
 
   const deleteTrip = async (tripId: string) => {
     if (!confirm("Are you sure you want to delete this trip?")) return;
@@ -81,7 +83,7 @@ export default function SavedTrips() {
           </div>
           <h3 className="text-2xl font-bold mb-2">No trips saved yet</h3>
           <p className="text-text-muted mb-8 max-w-md">
-            You haven't saved any itineraries yet.
+            You haven&apos;t saved any itineraries yet.
           </p>
           <Link 
             href="/planner"

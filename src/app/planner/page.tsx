@@ -84,8 +84,6 @@ export default function TripPlanner() {
     );
   }
 
-  const [isDownloading, setIsDownloading] = useState(false);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     submit({ destination, duration, budget, interests });
@@ -189,15 +187,18 @@ export default function TripPlanner() {
             {itinerary.destination && (
               <DynamicMap 
                 destination={itinerary.destination} 
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 activities={itinerary.days?.flatMap((d: any) => d?.activities || []) || []} 
               />
             )}
             {itinerary.days && itinerary.days.length > 0 && (
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               <CostChart days={itinerary.days as any} />
             )}
           </div>
 
           <div className="space-y-8">
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             {itinerary.days?.map((day: any, dayIdx: number) => {
               if (!day) return null;
               return (
@@ -206,6 +207,7 @@ export default function TripPlanner() {
                 <p className="text-text-muted font-medium mb-4">{day.theme}</p>
                 
                 <div className="space-y-4">
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                   {day.activities?.map((activity: any, index: number) => {
                     if (!activity) return null;
                     return (

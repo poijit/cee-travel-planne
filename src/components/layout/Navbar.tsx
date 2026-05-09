@@ -8,12 +8,13 @@ import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const isLoading = status === "loading";
 
   // Avoid hydration mismatch by only rendering the toggle after mounting
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     setMounted(true);
   }, []);
 

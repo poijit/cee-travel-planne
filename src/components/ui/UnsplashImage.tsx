@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 
 interface UnsplashImageProps {
   query: string;
@@ -52,6 +51,7 @@ export default function UnsplashImage({ query, className = "", alt }: UnsplashIm
   return (
     <div className={`relative overflow-hidden ${className}`}>
       {imageUrl && (
+        /* eslint-disable-next-line @next/next/no-img-element */
         <img 
           src={imageUrl} 
           alt={alt} 

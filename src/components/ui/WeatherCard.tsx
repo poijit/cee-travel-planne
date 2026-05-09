@@ -8,6 +8,7 @@ interface WeatherCardProps {
 }
 
 export default function WeatherCard({ destination }: WeatherCardProps) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [weather, setWeather] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -56,7 +57,7 @@ export default function WeatherCard({ destination }: WeatherCardProps) {
   const condition = weather.weather[0].main;
   
   // Choose an icon based on the condition
-  const WeatherIcon = () => {
+  const renderWeatherIcon = () => {
     switch (condition) {
       case "Clear": return <Sun className="text-yellow-400" size={48} />;
       case "Rain": 
@@ -82,7 +83,7 @@ export default function WeatherCard({ destination }: WeatherCardProps) {
         </div>
       </div>
       <div className="bg-background p-4 rounded-full shadow-sm">
-        <WeatherIcon />
+        {renderWeatherIcon()}
       </div>
     </div>
   );
