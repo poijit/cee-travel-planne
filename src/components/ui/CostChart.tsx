@@ -34,9 +34,10 @@ export default function CostChart({ days }: CostChartProps) {
     return isNaN(num) ? 0 : num;
   };
 
-  const labels = days.map(day => `Day ${day.dayNumber}`);
+  const labels = days.map((day, idx) => `Day ${day?.dayNumber || idx + 1}`);
   const dataPoints = days.map(day => {
-    return day.activities.reduce((total, activity) => total + parseCost(activity.estimatedCost), 0);
+    if (!day?.activities) return 0;
+    return day.activities.reduce((total, activity) => total + parseCost(activity?.estimatedCost || ""), 0);
   });
 
   const data = {
