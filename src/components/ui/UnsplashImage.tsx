@@ -52,12 +52,11 @@ export default function UnsplashImage({ query, className = "", alt }: UnsplashIm
   return (
     <div className={`relative overflow-hidden ${className}`}>
       {imageUrl && (
-        <Image 
+        <img 
           src={imageUrl} 
           alt={alt} 
-          fill 
-          className="object-cover transition-transform duration-500 hover:scale-105" 
-          unoptimized // Required because external domains aren't configured in next.config.ts yet
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
+          crossOrigin="anonymous"
         />
       )}
     </div>

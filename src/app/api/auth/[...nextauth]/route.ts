@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID || "",
@@ -10,7 +10,7 @@ const handler = NextAuth({
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async session({ session, token }) {
+    async session({ session, token }: any) {
       if (session.user) {
         // Attach the user's ID to the session object
         (session.user as any).id = token.sub;
@@ -18,6 +18,8 @@ const handler = NextAuth({
       return session;
     },
   },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

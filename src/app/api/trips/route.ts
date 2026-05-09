@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]/route";
 import { getDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import crypto from "crypto";
 
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions as any);
     if (!session || !session.user || !(session.user as any).id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -36,7 +37,7 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions as any);
     if (!session || !session.user || !(session.user as any).id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -60,7 +61,7 @@ export async function GET(req: Request) {
 
 export async function DELETE(req: Request) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions as any);
     if (!session || !session.user || !(session.user as any).id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
