@@ -45,7 +45,7 @@ export default function UnsplashImage({ query, className = "", alt, isGenerating
     }
 
     fetchImage();
-  }, [query]);
+  }, [query, isGenerating]);
 
   if (loading) {
     return <div className={`bg-gray-200 dark:bg-gray-800 animate-pulse ${className}`}></div>;
