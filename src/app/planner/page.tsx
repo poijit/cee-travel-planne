@@ -102,14 +102,15 @@ export default function TripPlanner() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save trip');
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.details || errorData?.error || 'Failed to save trip');
       }
 
       alert("Trip saved successfully! You can view it in your Saved Trips.");
       router.push('/saved');
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error saving trip:", error);
-      alert("Failed to save the trip. Please try again.");
+      alert(`Failed to save the trip: ${error.message}`);
     } finally {
       setIsSaving(false);
     }

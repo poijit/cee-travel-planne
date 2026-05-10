@@ -24,10 +24,10 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true, tripId });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error saving trip to MongoDB:", error);
     return NextResponse.json(
-      { error: "Failed to save trip." },
+      { error: "Failed to save trip.", details: error.message || String(error) },
       { status: 500 }
     );
   }
