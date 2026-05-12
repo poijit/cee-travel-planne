@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CEE Final Project – 1-Page Summary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 32px 16px;
+      min-height: 100vh;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: #ffffff;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0ea5e9 100%);
+      padding: 28px 36px 22px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '✈';
+      position: absolute;
+      right: 32px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 72px;
+      opacity: 0.12;
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: rgba(14, 165, 233, 0.25);
+      border: 1px solid rgba(14, 165, 233, 0.5);
+      color: #7dd3fc;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+    }
+
+    .header h1 span {
+      color: #38bdf8;
+    }
+
+    .header p {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #94a3b8;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    /* ── BODY ── */
+    .body {
+      padding: 24px 36px;
+      flex: 1;
+    }
+
+    /* ── TWO-COL LAYOUT ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #0ea5e9;
+      border-bottom: 1.5px solid #e2e8f0;
+      padding-bottom: 5px;
+      margin-bottom: 12px;
+    }
+
+    /* ── DESCRIPTION ── */
+    .description {
+      font-size: 12.5px;
+      color: #334155;
+      line-height: 1.75;
+    }
+
+    /* ── FEATURE TAGS ── */
+    .feature-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 11px;
+      border-radius: 20px;
+      border: 1px solid;
+    }
+
+    .tag-blue {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border-color: #bfdbfe;
+    }
+
+    .tag-green {
+      background: #f0fdf4;
+      color: #15803d;
+      border-color: #bbf7d0;
+    }
+
+    .tag-purple {
+      background: #faf5ff;
+      color: #7e22ce;
+      border-color: #e9d5ff;
+    }
+
+    .tag-amber {
+      background: #fffbeb;
+      color: #b45309;
+      border-color: #fde68a;
+    }
+
+    .tag-rose {
+      background: #fff1f2;
+      color: #be123c;
+      border-color: #fecdd3;
+    }
+
+    /* ── TIER BOX ── */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .tier-card {
+      border-radius: 8px;
+      padding: 11px 12px;
+      border: 1px solid;
+    }
+
+    .tier-card .medal {
+      font-size: 18px;
+    }
+
+    .tier-card .tier-name {
+      font-size: 10px;
+      font-weight: 700;
+      margin: 3px 0 2px;
+    }
+
+    .tier-card .tier-desc {
+      font-size: 9.5px;
+      line-height: 1.4;
+    }
+
+    .tier-card .tier-pts {
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    .tier-b {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .tier-b .tier-name {
+      color: #475569;
+    }
+
+    .tier-b .tier-desc {
+      color: #64748b;
+    }
+
+    .tier-b .tier-pts {
+      color: #0ea5e9;
+    }
+
+    .tier-c {
+      background: #fff7ed;
+      border-color: #fed7aa;
+    }
+
+    .tier-c .tier-name {
+      color: #9a3412;
+    }
+
+    .tier-c .tier-desc {
+      color: #c2410c;
+    }
+
+    .tier-c .tier-pts {
+      color: #ea580c;
+    }
+
+    .tier-total {
+      background: linear-gradient(135deg, #0f172a, #1e3a5f);
+      border-color: #334155;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .tier-total .tier-name {
+      color: #94a3b8;
+      font-size: 9px;
+    }
+
+    .tier-total .tier-pts {
+      color: #38bdf8;
+      font-size: 22px;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    .tier-total .tier-sub {
+      color: #64748b;
+      font-size: 9px;
+    }
+
+    /* ── LINK ROWS ── */
+    .link-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .link-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .link-icon-blue {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .link-icon-gray {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    .link-label {
+      font-size: 9px;
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .link-value {
+      font-size: 11px;
+      color: #0ea5e9;
+      font-weight: 500;
+      word-break: break-all;
+    }
+
+    /* ── TECH STACK ── */
+    .stack-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .stack-chip {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .team-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    .team-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      margin: 0 auto 6px;
+    }
+
+    .team-name {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .team-sub {
+      font-size: 9.5px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    /* ── SCORE BAR ── */
+    .score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .score-row {}
+
+    .score-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #475569;
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+
+    .score-bar {
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .score-fill {
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #0ea5e9, #6366f1);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #0f172a;
+      padding: 12px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left {
+      font-size: 10px;
+      color: #64748b;
+    }
+
+    .footer-left strong {
+      color: #94a3b8;
+    }
+
+    .footer-right {
+      font-size: 10px;
+      color: #64748b;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .page {
+        box-shadow: none;
+        border-radius: 0;
+        width: 100%;
+        min-height: 100vh;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-badge">CEE Final Project · 2026</div>
+      <h1>🗺️ AI <span>Travel Planner</span></h1>
+      <p>
+        An AI-powered web application that generates personalized, day-by-day travel itineraries
+        based on destination, duration, budget, and interests. Users sign in via GitHub,
+        generate trips using cutting-edge LLMs, visualize costs and weather on an interactive
+        dashboard, and save their favorite itineraries to the cloud.
+      </p>
+    </div>
+
+    <!-- BODY -->
+    <div class="body">
+
+      <!-- ROW 1: Features + Tiers -->
+      <div class="two-col">
+
+        <!-- FEATURES -->
+        <div class="section">
+          <div class="section-title">✅ Features Built</div>
+          <div class="feature-list">
+            <span class="tag tag-blue">🔐 GitHub OAuth Login</span>
+            <span class="tag tag-green">🤖 AI Itinerary Generation</span>
+            <span class="tag tag-purple">🗺️ Interactive Map</span>
+            <span class="tag tag-amber">📊 Cost Bar Chart</span>
+            <span class="tag tag-blue">🌤️ Live Weather Data</span>
+            <span class="tag tag-green">💾 Save / Delete Trips</span>
+            <span class="tag tag-rose">🌙 Dark / Light Mode Toggle</span>
+            <span class="tag tag-purple">📄 PDF Export</span>
+          </div>
+        </div>
+
+        <!-- TIER -->
+        <div class="section">
+          <div class="section-title">🏆 Optional Tiers Claimed</div>
+          <div class="tier-grid">
+            <div class="tier-card tier-b">
+              <div class="medal">🥈</div>
+              <div class="tier-name">Saved / Favorites</div>
+              <div class="tier-desc">Full CRUD saved trips tied to user account via MongoDB</div>
+              <div class="tier-pts">Tier B · 12 pts</div>
+            </div>
+            <div class="tier-card tier-b">
+              <div class="medal">🥈</div>
+              <div class="tier-name">Dashboard & Viz</div>
+              <div class="tier-desc">Interactive map, cost chart & live weather from real APIs</div>
+              <div class="tier-pts">Tier B · 12 pts</div>
+            </div>
+            <div class="tier-card tier-c">
+              <div class="medal">🥉</div>
+              <div class="tier-name">Dark Mode</div>
+              <div class="tier-desc">Full light/dark theme toggle, persisted via next-themes</div>
+              <div class="tier-pts">Tier C · 4 pts</div>
+            </div>
+          </div>
+          <div
+            style="margin-top:8px; background:#0f172a; border-radius:8px; padding:8px 14px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="color:#94a3b8; font-size:10px;">12 + 12 + 4 = 28 → capped at max</span>
+            <span style="color:#38bdf8; font-size:16px; font-weight:800;">20 / 20 pts</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ROW 2: Links + Tech Stack -->
+      <div class="two-col">
+
+        <!-- LINKS -->
+        <div class="section">
+          <div class="section-title">🔗 Links</div>
+          <div class="link-row">
+            <div class="link-icon link-icon-blue">🌐</div>
+            <div>
+              <div class="link-label">Live URL</div>
+              <div class="link-value">https://cee-travel-planne.vercel.app/</div>
+            </div>
+          </div>
+          <div class="link-row">
+            <div class="link-icon link-icon-gray">🐙</div>
+            <div>
+              <div class="link-label">GitHub Repository</div>
+              <div class="link-value">https://github.com/poijit/cee-travel-planne</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TECH STACK -->
+        <div class="section">
+          <div class="section-title">🛠️ Tech Stack</div>
+          <div class="stack-grid">
+            <span class="stack-chip">Next.js 16</span>
+            <span class="stack-chip">TypeScript</span>
+            <span class="stack-chip">Tailwind CSS</span>
+            <span class="stack-chip">NextAuth.js</span>
+            <span class="stack-chip">MongoDB Atlas</span>
+            <span class="stack-chip">Google Gemini</span>
+            <span class="stack-chip">Groq / Llama 3.3</span>
+            <span class="stack-chip">OpenWeatherMap</span>
+            <span class="stack-chip">Leaflet Maps</span>
+            <span class="stack-chip">Chart.js</span>
+            <span class="stack-chip">Vercel</span>
+            <span class="stack-chip">GitHub OAuth</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ROW 3: Team + Score -->
+      <div class="two-col">
+
+        <!-- TEAM -->
+        <div class="section">
+          <div class="section-title">👥 Team Members</div>
+          <div class="team-grid">
+            <div class="team-card">
+              <div class="team-avatar">👤</div>
+              <div class="team-name">Thanakorn Jearkpaporn</div>
+              <div class="team-sub">Member 1</div>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar">👤</div>
+              <div class="team-name">Chaiyanant Cheerasiri</div>
+              <div class="team-sub">Member 2</div>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar">👤</div>
+              <div class="team-name">Prin Bhutiangkul</div>
+              <div class="team-sub">Member 3</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCORE BREAKDOWN -->
+        <div class="section">
+          <div class="section-title">📊 Score Breakdown</div>
+          <div class="score-grid">
+            <div class="score-row">
+              <div class="score-label"><span>Deployment</span><span>20%</span></div>
+              <div class="score-bar">
+                <div class="score-fill" style="width:100%"></div>
+              </div>
+            </div>
+            <div class="score-row">
+              <div class="score-label"><span>Challenging Req.</span><span>20%</span></div>
+              <div class="score-bar">
+                <div class="score-fill" style="width:100%"></div>
+              </div>
+            </div>
+            <div class="score-row">
+              <div class="score-label"><span>Video Clip</span><span>20%</span></div>
+              <div class="score-bar">
+                <div class="score-fill" style="width:100%"></div>
+              </div>
+            </div>
+            <div class="score-row">
+              <div class="score-label"><span>User Login</span><span>10%</span></div>
+              <div class="score-bar">
+                <div class="score-fill" style="width:50%"></div>
+              </div>
+            </div>
+            <div class="score-row">
+              <div class="score-label"><span>API Integration</span><span>10%</span></div>
+              <div class="score-bar">
+                <div class="score-fill" style="width:50%"></div>
+              </div>
+            </div>
+            <div class="score-row">
+              <div class="score-label"><span>UI / UX</span><span>10%</span></div>
+              <div class="score-bar">
+                <div class="score-fill" style="width:50%"></div>
+              </div>
+            </div>
+            <div class="score-row">
+              <div class="score-label"><span>1-Page Summary</span><span>10%</span></div>
+              <div class="score-bar">
+                <div class="score-fill" style="width:50%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-left"><strong>Computer Engineering Essential</strong> · Final Project · 2026</div>
+      <div class="footer-right">Deadline: May 12, 2026 · 23:59</div>
+    </div>
+
+  </div>
+</body>
+
+</html>
